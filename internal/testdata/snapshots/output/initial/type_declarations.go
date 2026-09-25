@@ -27,6 +27,7 @@
 //               display_name IfaceType
 //               signature_documentation
 //               > type IfaceType interface{ Method() LiteralType }
+// ⌄ enclosing_range_start 0.1.test `sg/initial`/IfaceType#Method.
    Method() LiteralType
 // ^^^^^^ definition 0.1.test `sg/initial`/IfaceType#Method.
 //        kind MethodSpecification
@@ -34,6 +35,7 @@
 //        signature_documentation
 //        > func (IfaceType).Method() LiteralType
 //          ^^^^^^^^^^^ reference 0.1.test `sg/initial`/LiteralType#
+//                    ⌃ enclosing_range_end 0.1.test `sg/initial`/IfaceType#Method.
   }
 //⌃ enclosing_range_end 0.1.test `sg/initial`/IfaceType#
   
@@ -99,12 +101,14 @@
 //   > struct field i interface{AnonMethod() bool}
 //   documentation
 //   > interface within struct
+//  ⌄ enclosing_range_start 0.1.test `sg/initial`/StructType#$anon_97e7de633e3ef8e8#AnonMethod.
     AnonMethod() bool
 //  ^^^^^^^^^^ definition 0.1.test `sg/initial`/StructType#$anon_97e7de633e3ef8e8#AnonMethod.
 //             kind MethodSpecification
 //             display_name AnonMethod
 //             signature_documentation
 //             > func (interface).AnonMethod() bool
+//                  ⌃ enclosing_range_end 0.1.test `sg/initial`/StructType#$anon_97e7de633e3ef8e8#AnonMethod.
    }
 // ⌃ enclosing_range_end 0.1.test `sg/initial`/StructType#i.
   }

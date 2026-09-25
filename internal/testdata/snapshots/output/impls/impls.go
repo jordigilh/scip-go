@@ -12,12 +12,14 @@
 //        display_name I1
 //        signature_documentation
 //        > type I1 interface{ F1() }
+// ⌄ enclosing_range_start 0.1.test `sg/impls`/I1#F1.
    F1()
 // ^^ definition 0.1.test `sg/impls`/I1#F1.
 //    kind MethodSpecification
 //    display_name F1
 //    signature_documentation
 //    > func (I1).F1()
+//    ⌃ enclosing_range_end 0.1.test `sg/impls`/I1#F1.
   }
 //⌃ enclosing_range_end 0.1.test `sg/impls`/I1#
   
@@ -28,12 +30,14 @@
 //             display_name I1Clone
 //             signature_documentation
 //             > type I1Clone interface{ F1() }
+// ⌄ enclosing_range_start 0.1.test `sg/impls`/I1Clone#F1.
    F1()
 // ^^ definition 0.1.test `sg/impls`/I1Clone#F1.
 //    kind MethodSpecification
 //    display_name F1
 //    signature_documentation
 //    > func (I1Clone).F1()
+//    ⌃ enclosing_range_end 0.1.test `sg/impls`/I1Clone#F1.
   }
 //⌃ enclosing_range_end 0.1.test `sg/impls`/I1Clone#
   
@@ -47,18 +51,22 @@
 //                >     Another()
 //                >     Something()
 //                > }
+// ⌄ enclosing_range_start 0.1.test `sg/impls`/IfaceOther#Something.
    Something()
 // ^^^^^^^^^ definition 0.1.test `sg/impls`/IfaceOther#Something.
 //           kind MethodSpecification
 //           display_name Something
 //           signature_documentation
 //           > func (IfaceOther).Something()
+//           ⌃ enclosing_range_end 0.1.test `sg/impls`/IfaceOther#Something.
+// ⌄ enclosing_range_start 0.1.test `sg/impls`/IfaceOther#Another.
    Another()
 // ^^^^^^^ definition 0.1.test `sg/impls`/IfaceOther#Another.
 //         kind MethodSpecification
 //         display_name Another
 //         signature_documentation
 //         > func (IfaceOther).Another()
+//         ⌃ enclosing_range_end 0.1.test `sg/impls`/IfaceOther#Another.
   }
 //⌃ enclosing_range_end 0.1.test `sg/impls`/IfaceOther#
   

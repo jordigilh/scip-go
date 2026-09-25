@@ -11,12 +11,14 @@
 //            display_name Person
 //            signature_documentation
 //            > type Person interface{ Work() }
+// ⌄ enclosing_range_start 0.1.test `sg/generallyeric`/Person#Work.
    Work()
 // ^^^^ definition 0.1.test `sg/generallyeric`/Person#Work.
 //      kind MethodSpecification
 //      display_name Work
 //      signature_documentation
 //      > func (Person).Work()
+//      ⌃ enclosing_range_end 0.1.test `sg/generallyeric`/Person#Work.
   }
 //⌃ enclosing_range_end 0.1.test `sg/generallyeric`/Person#
   

@@ -154,12 +154,14 @@
 //                    display_name LocalInterface
 //                    signature_documentation
 //                    > type LocalInterface interface{ Get() int }
+// ⌄ enclosing_range_start 0.1.test `sg/pr222`/LocalInterface#Get.
    Get() int
 // ^^^ definition 0.1.test `sg/pr222`/LocalInterface#Get.
 //     kind MethodSpecification
 //     display_name Get
 //     signature_documentation
 //     > func (LocalInterface).Get() int
+//         ⌃ enclosing_range_end 0.1.test `sg/pr222`/LocalInterface#Get.
   }
 //⌃ enclosing_range_end 0.1.test `sg/pr222`/LocalInterface#
   

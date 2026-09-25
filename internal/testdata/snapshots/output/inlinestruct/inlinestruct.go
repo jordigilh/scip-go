@@ -12,12 +12,14 @@
 //                    display_name FieldInterface
 //                    signature_documentation
 //                    > type FieldInterface interface{ SomeMethod() string }
+// ⌄ enclosing_range_start 0.1.test `sg/inlinestruct`/FieldInterface#SomeMethod.
    SomeMethod() string
 // ^^^^^^^^^^ definition 0.1.test `sg/inlinestruct`/FieldInterface#SomeMethod.
 //            kind MethodSpecification
 //            display_name SomeMethod
 //            signature_documentation
 //            > func (FieldInterface).SomeMethod() string
+//                   ⌃ enclosing_range_end 0.1.test `sg/inlinestruct`/FieldInterface#SomeMethod.
   }
 //⌃ enclosing_range_end 0.1.test `sg/inlinestruct`/FieldInterface#
   

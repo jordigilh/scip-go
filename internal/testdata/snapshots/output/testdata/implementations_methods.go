@@ -8,12 +8,14 @@
 //                               display_name InterfaceWithSingleMethod
 //                               signature_documentation
 //                               > type InterfaceWithSingleMethod interface{ SingleMethod() float64 }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/InterfaceWithSingleMethod#SingleMethod.
    SingleMethod() float64
 // ^^^^^^^^^^^^ definition 0.1.test `sg/testdata`/InterfaceWithSingleMethod#SingleMethod.
 //              kind MethodSpecification
 //              display_name SingleMethod
 //              signature_documentation
 //              > func (InterfaceWithSingleMethod).SingleMethod() float64
+//                      ⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithSingleMethod#SingleMethod.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithSingleMethod#
   
@@ -45,12 +47,14 @@
 //                                              display_name InterfaceWithSingleMethodTwoImplementers
 //                                              signature_documentation
 //                                              > type InterfaceWithSingleMethodTwoImplementers interface{ SingleMethodTwoImpl() float64 }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/InterfaceWithSingleMethodTwoImplementers#SingleMethodTwoImpl.
    SingleMethodTwoImpl() float64
 // ^^^^^^^^^^^^^^^^^^^ definition 0.1.test `sg/testdata`/InterfaceWithSingleMethodTwoImplementers#SingleMethodTwoImpl.
 //                     kind MethodSpecification
 //                     display_name SingleMethodTwoImpl
 //                     signature_documentation
 //                     > func (InterfaceWithSingleMethodTwoImplementers).SingleMethodTwoImpl() float64
+//                             ⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithSingleMethodTwoImplementers#SingleMethodTwoImpl.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithSingleMethodTwoImplementers#
   

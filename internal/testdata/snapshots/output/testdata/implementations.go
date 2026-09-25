@@ -17,12 +17,14 @@
 //        display_name I1
 //        signature_documentation
 //        > type I1 interface{ F1() }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/I1#F1.
    F1()
 // ^^ definition 0.1.test `sg/testdata`/I1#F1.
 //    kind MethodSpecification
 //    display_name F1
 //    signature_documentation
 //    > func (I1).F1()
+//    ⌃ enclosing_range_end 0.1.test `sg/testdata`/I1#F1.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/I1#
   
@@ -33,12 +35,14 @@
 //        display_name I2
 //        signature_documentation
 //        > type I2 interface{ F2() }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/I2#F2.
    F2()
 // ^^ definition 0.1.test `sg/testdata`/I2#F2.
 //    kind MethodSpecification
 //    display_name F2
 //    signature_documentation
 //    > func (I2).F2()
+//    ⌃ enclosing_range_end 0.1.test `sg/testdata`/I2#F2.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/I2#
   
@@ -136,12 +140,14 @@
 //                                    display_name InterfaceWithNonExportedMethod
 //                                    signature_documentation
 //                                    > type InterfaceWithNonExportedMethod interface{ nonExportedMethod() }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/InterfaceWithNonExportedMethod#nonExportedMethod.
    nonExportedMethod()
 // ^^^^^^^^^^^^^^^^^ definition 0.1.test `sg/testdata`/InterfaceWithNonExportedMethod#nonExportedMethod.
 //                   kind MethodSpecification
 //                   display_name nonExportedMethod
 //                   signature_documentation
 //                   > func (InterfaceWithNonExportedMethod).nonExportedMethod()
+//                   ⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithNonExportedMethod#nonExportedMethod.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithNonExportedMethod#
   
@@ -152,12 +158,14 @@
 //                                 display_name InterfaceWithExportedMethod
 //                                 signature_documentation
 //                                 > type InterfaceWithExportedMethod interface{ ExportedMethod() }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/InterfaceWithExportedMethod#ExportedMethod.
    ExportedMethod()
 // ^^^^^^^^^^^^^^ definition 0.1.test `sg/testdata`/InterfaceWithExportedMethod#ExportedMethod.
 //                kind MethodSpecification
 //                display_name ExportedMethod
 //                signature_documentation
 //                > func (InterfaceWithExportedMethod).ExportedMethod()
+//                ⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithExportedMethod#ExportedMethod.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/InterfaceWithExportedMethod#
   
@@ -231,18 +239,22 @@
 //               >     Distinct()
 //               >     Shared()
 //               > }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/SharedOne#Shared.
    Shared()
 // ^^^^^^ definition 0.1.test `sg/testdata`/SharedOne#Shared.
 //        kind MethodSpecification
 //        display_name Shared
 //        signature_documentation
 //        > func (SharedOne).Shared()
+//        ⌃ enclosing_range_end 0.1.test `sg/testdata`/SharedOne#Shared.
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/SharedOne#Distinct.
    Distinct()
 // ^^^^^^^^ definition 0.1.test `sg/testdata`/SharedOne#Distinct.
 //          kind MethodSpecification
 //          display_name Distinct
 //          signature_documentation
 //          > func (SharedOne).Distinct()
+//          ⌃ enclosing_range_end 0.1.test `sg/testdata`/SharedOne#Distinct.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/SharedOne#
   
@@ -256,18 +268,22 @@
 //               >     Shared()
 //               >     Unique()
 //               > }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/SharedTwo#Shared.
    Shared()
 // ^^^^^^ definition 0.1.test `sg/testdata`/SharedTwo#Shared.
 //        kind MethodSpecification
 //        display_name Shared
 //        signature_documentation
 //        > func (SharedTwo).Shared()
+//        ⌃ enclosing_range_end 0.1.test `sg/testdata`/SharedTwo#Shared.
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/SharedTwo#Unique.
    Unique()
 // ^^^^^^ definition 0.1.test `sg/testdata`/SharedTwo#Unique.
 //        kind MethodSpecification
 //        display_name Unique
 //        signature_documentation
 //        > func (SharedTwo).Unique()
+//        ⌃ enclosing_range_end 0.1.test `sg/testdata`/SharedTwo#Unique.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/SharedTwo#
   

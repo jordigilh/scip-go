@@ -432,12 +432,14 @@
 //               > type Interface interface{ ImplementsInterface() string }
 //               documentation
 //               > Interface has docs too
+// ⌄ enclosing_range_start 0.1.test `sg/initial`/Interface#ImplementsInterface.
    ImplementsInterface() string
 // ^^^^^^^^^^^^^^^^^^^ definition 0.1.test `sg/initial`/Interface#ImplementsInterface.
 //                     kind MethodSpecification
 //                     display_name ImplementsInterface
 //                     signature_documentation
 //                     > func (Interface).ImplementsInterface() string
+//                            ⌃ enclosing_range_end 0.1.test `sg/initial`/Interface#ImplementsInterface.
   }
 //⌃ enclosing_range_end 0.1.test `sg/initial`/Interface#
   

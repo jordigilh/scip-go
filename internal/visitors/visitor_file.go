@@ -74,12 +74,8 @@ type fileVisitor struct {
 	// caseClauses maps particular positions to different types for case clauses
 	caseClauses map[token.Pos]types.Object
 
-	// currentFuncDecl tracks the enclosing FuncDecl during Visit traversal
-	currentFuncDecl *ast.FuncDecl
-
-	// declarationRanges maps named type/value/field definitions to the full
-	// source declaration enclosing their identifier. Function declarations are
-	// still handled by currentFuncDecl below.
+	// declarationRanges maps definitions to the full source declaration
+	// enclosing their identifier.
 	declarationRanges map[token.Pos]*scip.Range
 }
 
@@ -101,6 +97,12 @@ func collectDeclarationRanges(pkg *packages.Package, file *ast.File) map[token.P
 		ranges[name.Pos()] = &rng
 	}
 	for _, declaration := range file.Decls {
+		if function, ok := declaration.(*ast.FuncDecl); ok {
+			// Preserve function ranges as they were before this prepass: from
+			// the `func` keyword through the end of the declaration.
+			record(function.Name, function, nil)
+			continue
+		}
 		general, ok := declaration.(*ast.GenDecl)
 		if !ok || (general.Tok != token.TYPE && general.Tok != token.VAR && general.Tok != token.CONST) {
 			continue
@@ -126,22 +128,26 @@ func collectDeclarationRanges(pkg *packages.Package, file *ast.File) map[token.P
 					record(name, owner, docs)
 				}
 			}
-			// Named struct fields (including embedded and anonymous nested
-			// structs) have a bounded declaration even when their containing
-			// type is itself declared inside a value specification.
+			// Struct fields and interface methods have bounded declarations
+			// even when their containing type is nested in a value specification.
 			ast.Inspect(spec, func(n ast.Node) bool {
-				structure, ok := n.(*ast.StructType)
-				if !ok {
-					return true
-				}
-				for _, field := range structure.Fields.List {
-					if len(field.Names) > 0 {
-						for _, name := range field.Names {
-							record(name, field, field.Doc)
+				switch typ := n.(type) {
+				case *ast.InterfaceType:
+					for _, method := range typ.Methods.List {
+						for _, name := range method.Names {
+							record(name, method, method.Doc)
 						}
-					} else {
-						for _, name := range getIdentOfTypeExpr(pkg, field.Type) {
-							record(name, field, field.Doc)
+					}
+				case *ast.StructType:
+					for _, field := range typ.Fields.List {
+						if len(field.Names) > 0 {
+							for _, name := range field.Names {
+								record(name, field, field.Doc)
+							}
+						} else {
+							for _, name := range getIdentOfTypeExpr(pkg, field.Type) {
+								record(name, field, field.Doc)
+							}
 						}
 					}
 				}
@@ -233,20 +239,6 @@ func (v *fileVisitor) Visit(n ast.Node) ast.Visitor {
 		}
 
 		return v
-	case *ast.FuncDecl:
-		v.currentFuncDecl = node
-		if node.Doc != nil {
-			ast.Walk(v, node.Doc)
-		}
-		if node.Recv != nil {
-			ast.Walk(v, node.Recv)
-		}
-		ast.Walk(v, node.Name)
-		ast.Walk(v, node.Type)
-		if node.Body != nil {
-			ast.Walk(v, node.Body)
-		}
-		return nil
 	case *ast.File:
 		if node.Doc != nil {
 			ast.Walk(v, node.Doc)
@@ -434,16 +426,7 @@ func (v *fileVisitor) ToScipDocument() *scip.Document {
 }
 
 func (v *fileVisitor) enclosingRange(n *ast.Ident) *scip.Range {
-	if rng := v.declarationRanges[n.Pos()]; rng != nil {
-		return rng
-	}
-	if v.currentFuncDecl == nil || v.currentFuncDecl.Name != n {
-		return nil
-	}
-	startPosition := v.pkg.Fset.PositionFor(v.currentFuncDecl.Pos(), false)
-	endPosition := v.pkg.Fset.PositionFor(v.currentFuncDecl.End(), false)
-	rng := scipRange(startPosition, endPosition, v.pkg.TypesInfo.Defs[n])
-	return &rng
+	return v.declarationRanges[n.Pos()]
 }
 
 func deprecatedDiagnostics() []*scip.Diagnostic {

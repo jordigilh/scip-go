@@ -21,6 +21,7 @@
 //                   > }
 //                   documentation
 //                   > TestInterface is an interface used for testing.
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/TestInterface#Do.
    // Do does a test thing.
    Do(ctx context.Context, data string) (score int, _ error)
 // ^^ definition 0.1.test `sg/testdata`/TestInterface#Do.
@@ -47,6 +48,7 @@
 //                                             display_name score
 //                                             signature_documentation
 //                                             > var score int
+//                                                         ⌃ enclosing_range_end 0.1.test `sg/testdata`/TestInterface#Do.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/TestInterface#
   

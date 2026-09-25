@@ -8,12 +8,14 @@
 //        display_name I3
 //        signature_documentation
 //        > type I3 interface{ ScipTestMethod() }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/I3#ScipTestMethod.
    ScipTestMethod()
 // ^^^^^^^^^^^^^^ definition 0.1.test `sg/testdata`/I3#ScipTestMethod.
 //                kind MethodSpecification
 //                display_name ScipTestMethod
 //                signature_documentation
 //                > func (I3).ScipTestMethod()
+//                ⌃ enclosing_range_end 0.1.test `sg/testdata`/I3#ScipTestMethod.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/I3#
   
@@ -24,6 +26,7 @@
 //                display_name EmbeddedI3
 //                signature_documentation
 //                > type EmbeddedI3 interface{ ScipTestMethod() }
+// ⌄ enclosing_range_start 0.1.test `sg/testdata`/EmbeddedI3#ScipTestMethod.
    ScipTestMethod()
 // ^^^^^^^^^^^^^^ definition 0.1.test `sg/testdata`/EmbeddedI3#ScipTestMethod.
 //                kind MethodSpecification
@@ -32,6 +35,7 @@
 //                > func (EmbeddedI3).ScipTestMethod()
 //                relationship 0.1.test `sg/testdata`/EmbeddedI3#ScipTestMethod. implementation
 //                relationship 0.1.test `sg/testdata`/I3#ScipTestMethod. implementation
+//                ⌃ enclosing_range_end 0.1.test `sg/testdata`/EmbeddedI3#ScipTestMethod.
   }
 //⌃ enclosing_range_end 0.1.test `sg/testdata`/EmbeddedI3#
   
