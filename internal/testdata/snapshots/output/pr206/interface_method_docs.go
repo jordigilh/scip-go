@@ -1,6 +1,7 @@
   package pr206
 //        ^^^^^ definition 0.1.test `sg/pr206`/
   
+//⌄ enclosing_range_start 0.1.test `sg/pr206`/Doer#
   type Doer interface {
 //     ^^^^ definition 0.1.test `sg/pr206`/Doer#
 //          kind Interface
@@ -17,4 +18,5 @@
 //    documentation
 //    > Do performs the action and returns an error if it fails.
   }
+//⌃ enclosing_range_end 0.1.test `sg/pr206`/Doer#
   

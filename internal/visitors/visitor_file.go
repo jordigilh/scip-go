@@ -35,14 +35,15 @@ func NewFileVisitor(
 	}
 
 	return &fileVisitor{
-		doc:           doc,
-		pkg:           pkg,
-		file:          file,
-		locals:        map[token.Pos]lookup.Local{},
-		pkgSymbols:    pkgSymbols,
-		globalSymbols: globalSymbols,
-		occurrences:   occurrences,
-		caseClauses:   caseClauses,
+		doc:               doc,
+		pkg:               pkg,
+		file:              file,
+		locals:            map[token.Pos]lookup.Local{},
+		pkgSymbols:        pkgSymbols,
+		globalSymbols:     globalSymbols,
+		occurrences:       occurrences,
+		caseClauses:       caseClauses,
+		declarationRanges: collectDeclarationRanges(pkg, file),
 	}
 }
 
@@ -75,6 +76,80 @@ type fileVisitor struct {
 
 	// currentFuncDecl tracks the enclosing FuncDecl during Visit traversal
 	currentFuncDecl *ast.FuncDecl
+
+	// declarationRanges maps named type/value/field definitions to the full
+	// source declaration enclosing their identifier. Function declarations are
+	// still handled by currentFuncDecl below.
+	declarationRanges map[token.Pos]*scip.Range
+}
+
+// collectDeclarationRanges is deliberately limited to definitions whose
+// declaration ownership is unambiguous in the Go AST. In particular, function
+// parameters and local variables are not promoted to full-file declarations.
+func collectDeclarationRanges(pkg *packages.Package, file *ast.File) map[token.Pos]*scip.Range {
+	ranges := make(map[token.Pos]*scip.Range)
+	record := func(name *ast.Ident, declaration ast.Node, doc *ast.CommentGroup) {
+		if name == nil || name.Name == "_" || declaration == nil {
+			return
+		}
+		start := declaration.Pos()
+		if doc != nil && doc.Pos() < start {
+			start = doc.Pos()
+		}
+		rng := scipRange(pkg.Fset.PositionFor(start, false),
+			pkg.Fset.PositionFor(declaration.End(), false), pkg.TypesInfo.Defs[name])
+		ranges[name.Pos()] = &rng
+	}
+	for _, declaration := range file.Decls {
+		general, ok := declaration.(*ast.GenDecl)
+		if !ok || (general.Tok != token.TYPE && general.Tok != token.VAR && general.Tok != token.CONST) {
+			continue
+		}
+		for _, spec := range general.Specs {
+			owner := ast.Node(spec)
+			var docs *ast.CommentGroup
+			if len(general.Specs) == 1 {
+				owner = general
+				docs = general.Doc
+			}
+			switch value := spec.(type) {
+			case *ast.TypeSpec:
+				if value.Doc != nil {
+					docs = value.Doc
+				}
+				record(value.Name, owner, docs)
+			case *ast.ValueSpec:
+				if value.Doc != nil {
+					docs = value.Doc
+				}
+				for _, name := range value.Names {
+					record(name, owner, docs)
+				}
+			}
+			// Named struct fields (including embedded and anonymous nested
+			// structs) have a bounded declaration even when their containing
+			// type is itself declared inside a value specification.
+			ast.Inspect(spec, func(n ast.Node) bool {
+				structure, ok := n.(*ast.StructType)
+				if !ok {
+					return true
+				}
+				for _, field := range structure.Fields.List {
+					if len(field.Names) > 0 {
+						for _, name := range field.Names {
+							record(name, field, field.Doc)
+						}
+					} else {
+						for _, name := range getIdentOfTypeExpr(pkg, field.Type) {
+							record(name, field, field.Doc)
+						}
+					}
+				}
+				return true
+			})
+		}
+	}
+	return ranges
 }
 
 // Implements ast.Visitor
@@ -350,14 +425,18 @@ func (v *fileVisitor) ToScipDocument() *scip.Document {
 	}
 
 	return &scip.Document{
-		Language:     "go",
-		RelativePath: v.doc.RelativePath,
-		Occurrences:  v.occurrences,
-		Symbols:      documentSymbols,
+		Language:         "go",
+		RelativePath:     v.doc.RelativePath,
+		Occurrences:      v.occurrences,
+		Symbols:          documentSymbols,
+		PositionEncoding: scip.PositionEncoding_UTF8CodeUnitOffsetFromLineStart,
 	}
 }
 
 func (v *fileVisitor) enclosingRange(n *ast.Ident) *scip.Range {
+	if rng := v.declarationRanges[n.Pos()]; rng != nil {
+		return rng
+	}
 	if v.currentFuncDecl == nil || v.currentFuncDecl.Name != n {
 		return nil
 	}

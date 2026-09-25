@@ -5,6 +5,7 @@
 //              signature_documentation
 //              > package impls
   
+//⌄ enclosing_range_start 0.1.test `sg/impls`/I1#
   type I1 interface {
 //     ^^ definition 0.1.test `sg/impls`/I1#
 //        kind Interface
@@ -18,7 +19,9 @@
 //    signature_documentation
 //    > func (I1).F1()
   }
+//⌃ enclosing_range_end 0.1.test `sg/impls`/I1#
   
+//⌄ enclosing_range_start 0.1.test `sg/impls`/I1Clone#
   type I1Clone interface {
 //     ^^^^^^^ definition 0.1.test `sg/impls`/I1Clone#
 //             kind Interface
@@ -32,7 +35,9 @@
 //    signature_documentation
 //    > func (I1Clone).F1()
   }
+//⌃ enclosing_range_end 0.1.test `sg/impls`/I1Clone#
   
+//⌄ enclosing_range_start 0.1.test `sg/impls`/IfaceOther#
   type IfaceOther interface {
 //     ^^^^^^^^^^ definition 0.1.test `sg/impls`/IfaceOther#
 //                kind Interface
@@ -55,7 +60,9 @@
 //         signature_documentation
 //         > func (IfaceOther).Another()
   }
+//⌃ enclosing_range_end 0.1.test `sg/impls`/IfaceOther#
   
+//⌄ enclosing_range_start 0.1.test `sg/impls`/T1#
   type T1 int
 //     ^^ definition 0.1.test `sg/impls`/T1#
 //        kind Type
@@ -64,6 +71,7 @@
 //        > type T1 int
 //        relationship 0.1.test `sg/impls`/I1# implementation
 //        relationship 0.1.test `sg/impls`/I1Clone# implementation
+//          ⌃ enclosing_range_end 0.1.test `sg/impls`/T1#
   
 //⌄ enclosing_range_start 0.1.test `sg/impls`/T1#F1().
   func (r T1) F1() {}
@@ -82,6 +90,7 @@
 //               relationship 0.1.test `sg/impls`/I1Clone#F1. implementation
 //                  ⌃ enclosing_range_end 0.1.test `sg/impls`/T1#F1().
   
+//⌄ enclosing_range_start 0.1.test `sg/impls`/T2#
   type T2 int
 //     ^^ definition 0.1.test `sg/impls`/T2#
 //        kind Type
@@ -90,6 +99,7 @@
 //        > type T2 int
 //        relationship 0.1.test `sg/impls`/I1# implementation
 //        relationship 0.1.test `sg/impls`/I1Clone# implementation
+//          ⌃ enclosing_range_end 0.1.test `sg/impls`/T2#
   
 //⌄ enclosing_range_start 0.1.test `sg/impls`/T2#F1().
   func (r T2) F1() {}

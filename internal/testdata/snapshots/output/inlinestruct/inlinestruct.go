@@ -5,6 +5,7 @@
 //                     signature_documentation
 //                     > package inlinestruct
   
+//⌄ enclosing_range_start 0.1.test `sg/inlinestruct`/FieldInterface#
   type FieldInterface interface {
 //     ^^^^^^^^^^^^^^ definition 0.1.test `sg/inlinestruct`/FieldInterface#
 //                    kind Interface
@@ -18,13 +19,16 @@
 //            signature_documentation
 //            > func (FieldInterface).SomeMethod() string
   }
+//⌃ enclosing_range_end 0.1.test `sg/inlinestruct`/FieldInterface#
   
+//⌄ enclosing_range_start 0.1.test `sg/inlinestruct`/MyInline.
   var MyInline = struct {
 //    ^^^^^^^^ definition 0.1.test `sg/inlinestruct`/MyInline.
 //             kind Variable
 //             display_name MyInline
 //             signature_documentation
 //             > var MyInline struct{privateField FieldInterface; PublicField FieldInterface}
+// ⌄ enclosing_range_start 0.1.test `sg/inlinestruct`/MyInline:privateField.
    privateField FieldInterface
 // ^^^^^^^^^^^^ definition 0.1.test `sg/inlinestruct`/MyInline:privateField.
 //              kind Field
@@ -32,6 +36,8 @@
 //              signature_documentation
 //              > struct field privateField FieldInterface
 //              ^^^^^^^^^^^^^^ reference 0.1.test `sg/inlinestruct`/FieldInterface#
+//                           ⌃ enclosing_range_end 0.1.test `sg/inlinestruct`/MyInline:privateField.
+// ⌄ enclosing_range_start 0.1.test `sg/inlinestruct`/MyInline:PublicField.
    PublicField  FieldInterface
 // ^^^^^^^^^^^ definition 0.1.test `sg/inlinestruct`/MyInline:PublicField.
 //             kind Field
@@ -39,7 +45,9 @@
 //             signature_documentation
 //             > struct field PublicField FieldInterface
 //              ^^^^^^^^^^^^^^ reference 0.1.test `sg/inlinestruct`/FieldInterface#
+//                           ⌃ enclosing_range_end 0.1.test `sg/inlinestruct`/MyInline:PublicField.
   }{}
+//  ⌃ enclosing_range_end 0.1.test `sg/inlinestruct`/MyInline.
   
 //⌄ enclosing_range_start 0.1.test `sg/inlinestruct`/MyFunc().
   func MyFunc() {
